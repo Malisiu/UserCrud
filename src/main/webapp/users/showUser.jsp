@@ -68,33 +68,28 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+
+                <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dodaj użytkownika</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Szczegóły użytkownika</h1>
                     <a href="/user/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-download fa-sm text-white-50"></i> Dodaj użytkownika</a>
                 </div>
                 <div class="card-body">
-                    <form method="post">
-                        <div>
-                            <label for="username">Nazwa:</label>
-                            <br>
-                            <input id="username" type="text" name="username" placeholder="Nazwa użytkownika">
-                        </div>
-                        <div>
-                            <label for="email">Email:</label>
-                            <br>
-                            <input id="email" type="text" name="email" placeholder="Email użytkownika">
-                        </div>
-                        <div>
-                            <label for="password">Hasło:</label>
-                            <br>
-                            <input id="password" type="text" name="password" placeholder="Hasło użytkownika">
-                        </div>
-                        <br>
-                        <div>
-                            <input type="submit" value="Zapisz">
-                        </div>
-                    </form>
+                    <table class="table">
+                        <tr>
+                            <td>Id</td>
+                            <td>${id}</td>
+                        </tr>
+                        <tr>
+                            <td>Nazwa użytkownika</td>
+                            <td>${username}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>${email}</td>
+                        </tr>
+                    </table>
                 </div>
 
             </div>

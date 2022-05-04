@@ -11,29 +11,8 @@ public class UserDao {
     private static final String UPDATE_USERS_QUERY = "update users set email = ? , username = ?, password = ? where id = ?";
     private static final String SELECT_USER_QUERY = "select * from users where id = ?";
     private static final String SELECT_ALL_USERS_QUERY = "SELECT * FROM users";
+    private static final String DELETE_USER_QUERY = "DELETE from users where id = ?;";
 
-    public static String[] getInfo(){
-        String[] infoArr = new String[3];
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj email:");
-        infoArr[0] = scanner.nextLine();
-        System.out.println("Podaj username:");
-        infoArr[1] = scanner.nextLine();
-        System.out.println("Podaj hasło:");
-        infoArr[2] = scanner.nextLine();
-        return infoArr;
-    }
-
-    public static int getId(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj numer id");
-        while (!scanner.hasNextInt()){
-            System.out.println("Podaj poprawny numer id");
-            scanner.next();
-        }
-        return scanner.nextInt();
-    }
-    //uzywamy
     public static void addUser(String username , String email , String password){
         try(Connection connection = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO_USERS_QUERY,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -50,13 +29,13 @@ public class UserDao {
             e.printStackTrace();
         }
     }
-
-    public static void update(String[]info,int id){
+//email username password // 4 jest id bo po nim szukamy
+    public static void update(String email , String username, String password ,int id){
         try(Connection connection = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_QUERY);
-            preparedStatement.setString(1,info[0]);
-            preparedStatement.setString(2,info[1]);
-            preparedStatement.setString(3,info[2]);
+            preparedStatement.setString(1,email);
+            preparedStatement.setString(2,username);
+            preparedStatement.setString(3,password);
             preparedStatement.setInt(4,id);
             preparedStatement.executeUpdate();
         }catch (SQLException e){
@@ -64,16 +43,29 @@ public class UserDao {
         }
     }
 
-    public static void readUser(int id){
+    public static String[] readUser(int id){
         try(Connection connection = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_QUERY);
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
+            String[] emailNamePass = new String[3];
             while (resultSet.next()){
-                System.out.println("Email=" + resultSet.getString("email"));
-                System.out.println("UserName=" + resultSet.getString("username"));
-                System.out.println("Password=" + resultSet.getString("password"));
+                emailNamePass[0] = resultSet.getString("email");
+                emailNamePass[1] = resultSet.getString("username");
+                emailNamePass[2] = resultSet.getString("password");
             }
+            return emailNamePass;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void delete(int id){
+        try (Connection connection = DbUtil.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_QUERY);
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }

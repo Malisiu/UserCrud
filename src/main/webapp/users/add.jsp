@@ -68,48 +68,33 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-                <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Lista użytkowników</h1>
                     <a href="/user/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-download fa-sm text-white-50"></i> Dodaj użytkownika</a>
                 </div>
                 <div class="card-body">
-                    <table class="table">
-
-                        <tr>
-
-                            <th>Id</th>
-
-                            <th>Nazwa użytkownika</th>
-
-                            <th>Email</th>
-
-                            <th>Akcja</th>
-
-                        </tr>
-
-                        <c:forEach items="${users}" var="user">
-
-                            <tr>
-
-                                <td>${user.id}</td>
-
-                                <td>${user.username}</td>
-
-                                <td>${user.email}</td>
-
-                                <td>
-
-                                </td>
-
-                            </tr>
-
-                        </c:forEach>
-
-                    </table>
-
+                    <form method="post">
+                        <div>
+                            <label for="username">Nazwa:</label>
+                            <br>
+                            <input id="username" type="text" name="username" placeholder="Nazwa użytkownika">
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <br>
+                            <input id="email" type="text" name="email" placeholder="Email użytkownika">
+                        </div>
+                        <div>
+                            <label for="password">Hasło:</label>
+                            <br>
+                            <input id="password" type="text" name="password" placeholder="Hasło użytkownika">
+                        </div>
+                        <br>
+                        <div>
+                            <input type="submit" value="Zapisz">
+                        </div>
+                    </form>
                 </div>
 
             </div>
